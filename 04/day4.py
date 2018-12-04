@@ -45,3 +45,28 @@ with open('./input.txt', 'r') as f:
     print('Part 1:', counter.index(max(counter)) * int(max_id))
     end = time.time()
     print(end - start)
+    # part 2
+    start = time.time()
+    sleeptimes = {}
+    guard_id = 'none'
+    last_time = 0
+    max_id = 'none'
+    max_minute = 0
+    max_amount = 0
+    for line in lines:
+        if '#' in line:  # Guard #x begins shift
+            guard_id = line[line.index('#')+1:line.index('b')-1]
+            if guard_id not in sleeptimes:
+                sleeptimes[guard_id] = [0 for x in range(60)]
+        elif 'w' in line:  # wakes up
+            for x in range(last_time, minutes(line)):
+                sleeptimes[guard_id][x] += 1
+                if sleeptimes[guard_id][x] > max_amount:
+                    max_amount = sleeptimes[guard_id][x]
+                    max_minute = x
+                    max_id = guard_id
+        else:  # falls asleep
+            last_time = minutes(line)
+    print('Part 2:', max_minute * int(max_id))
+    end = time.time()
+    print(end - start)
