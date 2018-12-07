@@ -7,8 +7,6 @@ with open('./input.txt', 'r') as f:
     start = time.time()
     lines = f.readlines()
     points = [[int(line[:line.index(',')]), int(line[line.index(' ') + 1:])] for line in lines]
-    top, bottom = points[0][1], points[0][1]
-    left, right = points[0][0], points[0][0]
     grid = np.zeros(shape=(500, 500))  # pretty arbitrary
     infinites = []
     for x in range(500):
@@ -39,7 +37,14 @@ with open('./input.txt', 'r') as f:
     print(end - start)
     # part 2
     start = time.time()
-    # TODO
-    print('Part 2:',)
+    regionSize = 0
+    for x in range(500):
+        for y in range(500):
+            dist = 0
+            for point in points:
+                dist += abs(point[0] - x) + abs(point[1] - y)
+            if dist < 10000:
+                regionSize += 1
+    print('Part 2:', regionSize)
     end = time.time()
     print(end - start)
