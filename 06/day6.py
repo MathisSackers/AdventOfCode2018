@@ -26,12 +26,10 @@ with open('./input.txt', 'r') as f:
                     infinites.append(pid)
     unique, counts = np.unique(grid, return_counts=True)
     unique, counts = [int(x) for x in list(unique)], [int(x) for x in list(counts)]
-    print(counts)
     # discount invalids
     for infinite in infinites:
         counts[unique.index(infinite)] = -1
     counts[unique.index(-1)] = -1
-    print(counts)
     print('Part 1:', max(counts))
     end = time.time()
     print(end - start)
