@@ -18,7 +18,6 @@ def addMetadata(data):
 
 
 def nodeValue(data):
-    odata = data[:]
     value = 0
     numChildren = data[0]
     metas = data[1]
