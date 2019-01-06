@@ -1,4 +1,5 @@
 import time
+from collections import deque
 
 
 def addMarble(circle, current, value):
@@ -36,8 +37,25 @@ with open('./input.txt', 'r') as f:
     print('Part 1:', highscore)
     end = time.time()
     print(end - start)
-    # part 2
+    # part 2. The idea to use deque came from reddit
     start = time.time()
-    print('Part 2:')
+    marbles *= 100
+    points = {}
+    highscore = 0
+    circle = deque([0])
+    for val in range(1, marbles):
+        if val % 23 == 0:
+            circle.rotate(7)
+            p = circle.pop() + val
+            circle.rotate(-1)
+            if val % players in points:
+                points[val % players] += p
+            else:
+                points[val % players] = p
+            highscore = max(highscore, points[val % players])
+        else:
+            circle.rotate(-1)
+            circle.append(val)
+    print('Part 2:', highscore)
     end = time.time()
     print(end - start)
